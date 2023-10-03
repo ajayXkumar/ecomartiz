@@ -1,0 +1,42 @@
+/* navbar.css */
+
+.nav {
+    background-color: none;
+    color: #000000;
+    padding: px 20px; 
+    width: 100%;
+    /* position: fixed; */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .nav ul {
+    list-style: none;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  .nav h4 {
+    margin: 0; /* Remove margin for the heading */
+    font-size: 24px; /* Set the font size for the heading */
+  }
+  
+  .nav li {
+    margin: 0;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: #010101;
+    margin-right: 70px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    transition: color 0.3s; 
+  }
+  
+  .nav a:hover {
+    border-bottom: 2px solid black;
+  }
+  
