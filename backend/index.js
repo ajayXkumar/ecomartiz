@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const app = express();
 const Product = require("./models/Productmodel");
 const cors = require("cors");
-const User = require("./models/usermodel");
-app.use(express.json()); // for JSON requests
+require('dotenv').config()
+
+const port=process.env.PORT  ||8000;
+app.use(express.json()); 
  app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-mongoose.connect(
-  "mongodb+srv://ajxvanced:ajaykumar@cluster0.aadzezq.mongodb.net/ECOMMERCE?retryWrites=true&w=majority",
+mongoose.connect(process.env.MONGO_URI,
   {
     useNewUrlParser: true,
   }
@@ -18,42 +19,17 @@ conn.on("connected", function () {
   console.log("connected");
 });
 
-app.post("/login", (req, res) => {
-  
-  const { email, password } = req.body;
-  console.log(`${email}`);
-  User.findOne({ email: email })
-    .then((user) => {
-      if (!user) {
-        return res
-          .status(401)
-          .json({ error: "User not found. Please register." });
-      }
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
-      if (user.password === password) {
-        res.json({ message: "Login successful" });
-      } else {
-        res.status(401).json({ error: "Wrong password" });
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      res.status(500).json({ error: "Internal server error" });
-    });
-});
+app.post("/login", authRoutes.login);
+app.post("/register",authRoutes.register);
+app.get("/products",productRoutes.products)
+app.post("/orders", orderRoutes.orders)
 
-app.get("/products", async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
 app.post("/newproduct", async (req, res) => {
   try {
-    // Extract data from req.body
     const { name, category, image, price } = req.body;
     console.log("Received data:", req.body);
 
@@ -74,9 +50,7 @@ app.post("/newproduct", async (req, res) => {
   }
 });
 
-
-
-app.listen(8000, () => {
+app.listen(port, () => {
   console.log(`Server is listening on port 8000`);
 });
 
