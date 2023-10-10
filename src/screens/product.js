@@ -2,7 +2,6 @@ import React, { useContext ,useState,useEffect} from 'react';
 import "./products.css";
 import { Cartcontext } from '../context/shopcartcontext';
 import axios from 'axios';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 const Product = () => {
   const { addToCart } = useContext(Cartcontext);
   

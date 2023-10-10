@@ -1,18 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const path = require('path');
-
 const Product = require("./models/Productmodel");
-
 const cors = require("cors");
 const User = require("./models/usermodel");
-
 app.use(express.json()); // for JSON requests
  app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
-
 mongoose.connect(
   "mongodb+srv://ajxvanced:ajaykumar@cluster0.aadzezq.mongodb.net/ECOMMERCE?retryWrites=true&w=majority",
   {

@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Cartcontext } from '../context/shopcartcontext';
 import "./cart.css"
-import { json } from 'express';
-
 const Cart = () => {
   const { cartItem ,addToCart,removeCart,total,totalprice} = useContext(Cartcontext);
   
